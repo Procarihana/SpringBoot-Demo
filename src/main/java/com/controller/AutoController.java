@@ -67,7 +67,7 @@ public class AutoController {
 
     }
 
-    @PostMapping("/auth/login")
+    @PostMapping(value = "/auth/login", produces = "application/json; charset=utf-8")
     @ResponseBody
     public Object login(@RequestBody Map<String, Object> usernameAndPassword) {
         String username = usernameAndPassword.get("username").toString();

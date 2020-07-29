@@ -54,22 +54,23 @@ class UserServiceTest {
 //        }
 
 
-      Assertions.assertThrows(UsernameNotFoundException.class, new Executable() {
-          @Override
-          public void execute() throws Throwable {
-              userService.loadUserByUsername("MockUser");
-          }
-      });
+        Assertions.assertThrows(UsernameNotFoundException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                userService.loadUserByUsername("MockUser");
+            }
+        });
         // 断言 userService.loadUserByUsername("MockUser") 调用 一定会丢出  UsernameNotFoundException.class异常，
 
     }
+
     @Test
-    public void returnUserDetailWhenUserFound(){
-        Mockito.when(mockMapper.findUserByUsername("MockUser")).thenReturn(new User(1212,"MockUser","MockEncodedPassword"));
+    public void returnUserDetailWhenUserFound() {
+        Mockito.when(mockMapper.findUserByUsername("MockUser")).thenReturn(new User(1212, "MockUser", "MockEncodedPassword"));
 
         UserDetails userDetails = userService.loadUserByUsername("MockUser");
-        Assertions.assertEquals("MockUser",userDetails.getUsername());
-        Assertions.assertEquals("MockEncodedPassword",userDetails.getPassword());
+        Assertions.assertEquals("MockUser", userDetails.getUsername());
+        Assertions.assertEquals("MockEncodedPassword", userDetails.getPassword());
     }
 
 }

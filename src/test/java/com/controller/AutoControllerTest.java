@@ -98,8 +98,14 @@ class AutoControllerTest {
                 .content(new ObjectMapper()
                         .writeValueAsString(usernamePassword)))
                 .andExpect(status().isOk())
-                .andExpect(mvcResult -> Assertions.assertTrue(mvcResult.getResponse().getContentAsString().contains("登录成功")))
+                .andExpect(new ResultMatcher() {
+                    @Override
+                    public void match(MvcResult mvcResult) throws Exception {
+                        Assertions.assertTrue(mvcResult.getResponse().getContentAsString().contains("登录成功"));
+                    }
+                })
                 .andReturn();
+
 
         // System.out.println(response.getResponse().getCookies());  //仅仅是进行单元测试，测试返回的内容，而鉴权和cookie 是没有实现的，所以返回的cookie是拿不到的
         HttpSession session = response.getRequest().getSession();//session就是一组会话，HTTP响应和状态的集合
