@@ -3,3 +3,8 @@ jdk:
   - openjdk8
   - openjdk11
 script: mvn verify
+
+
+rvm:
+  - 2.2
+  - jruby
