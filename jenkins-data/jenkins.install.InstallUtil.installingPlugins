@@ -1,0 +1,10 @@
+<map>
+  <entry>
+    <string>workflow-aggregator</string>
+    <string>Failure</string>
+  </entry>
+  <entry>
+    <string>git</string>
+    <string>Failure</string>
+  </entry>
+</map>
