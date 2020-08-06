@@ -10,14 +10,12 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.Collections;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 @Service
 public class UserService implements UserDetailsService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private UserMapper userMapper;
+    private UserMapper  userMapper;
 
 
     @Inject
@@ -30,12 +28,12 @@ public class UserService implements UserDetailsService {
         userMapper.save(username, bCryptPasswordEncoder.encode(password));
     }
 
-    public User getUserById(Integer id) {
-        return null;
-    }
-
     public User getUserByUsername(String username) {
         return userMapper.findUserByUsername(username);
+    }
+
+    public User getUserById(Integer userId) {
+        return this.userMapper.getUserById((userId));
     }
 
     @Override
