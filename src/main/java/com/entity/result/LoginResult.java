@@ -1,4 +1,6 @@
-package com.entity;
+package com.entity.result;
+
+import com.entity.User;
 
 public class LoginResult extends Result {
     private boolean isLogin;

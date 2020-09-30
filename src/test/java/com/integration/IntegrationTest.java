@@ -30,7 +30,7 @@ public class IntegrationTest {
     Environment environment;  //获得随机端口用的是哪一个端口
 
     @Test
-    public void notLoginByDefaul() {
+    public void notLoginByDefault() {
         //因为是端口是随机启动的，所以要知道用的是哪一个端口
         String port = environment.getProperty("local.server.port");
         CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -40,8 +40,6 @@ public class IntegrationTest {
             Integer status = response1.getStatusLine().getStatusCode();
             ResponseHandler<String> handler = new BasicResponseHandler();
             String body = httpclient.execute(httpGet, handler);
-
-
             Assertions.assertEquals(200, status);
             Assertions.assertTrue(body.contains("用户没有登录"));
         } catch (IOException e) {

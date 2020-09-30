@@ -1,5 +1,7 @@
 package com.service;
 
+import java.math.BigInteger;
+
 import com.entity.User;
 import com.mapper.UserMapper;
 import org.junit.jupiter.api.Assertions;
@@ -20,22 +22,23 @@ class UserServiceTest {
     BCryptPasswordEncoder mockEncoder;
     @Mock
     UserMapper mockMapper;
-    @InjectMocks  //所依赖的都是mock的
-            UserService userService;
+    @InjectMocks
+    UserService userService;
 
     @Test
     public void testSave() {
         //调用userService
         //验证userService将请求转发给userMapper
 
-
+        String mockUsername = "MockUser";
         //BCryptPasswordEncoder会因为输入的是Mock，所以加密后返回的回是null，需要额外给条件
         //given
         Mockito.when(mockEncoder.encode("MockPassword")).thenReturn("MockEncodedPassword");
         //when:
-        userService.save("MockUser", "MockPassword");
+        userService.save(mockUsername, "MockPassword");
         //then:
-        Mockito.verify(mockMapper).save("MockUser", "MockEncodedPassword");
+        Mockito.verify(mockMapper)
+            .save("MockUser", "MockEncodedPassword", "https://avatars.dicebear.com/api/male/" + mockUsername + ".svg");
     }
 
     @Test
@@ -66,7 +69,9 @@ class UserServiceTest {
 
     @Test
     public void returnUserDetailWhenUserFound() {
-        Mockito.when(mockMapper.findUserByUsername("MockUser")).thenReturn(new User(1212, "MockUser", "MockEncodedPassword"));
+
+        Mockito.when(mockMapper.findUserByUsername("MockUser"))
+            .thenReturn(new User(BigInteger.valueOf(123), "MockUser", "MockEncodedPassword"));
 
         UserDetails userDetails = userService.loadUserByUsername("MockUser");
         Assertions.assertEquals("MockUser", userDetails.getUsername());

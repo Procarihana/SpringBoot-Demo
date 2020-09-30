@@ -1,11 +1,13 @@
 package com.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import java.io.Serializable;
+import java.math.BigInteger;
 import java.time.Instant;
 
-public class User {
-    Integer id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+public class User implements Serializable {
+    BigInteger id;
     String username;
     @JsonIgnore
     String encryptedPassword;
@@ -13,7 +15,19 @@ public class User {
     Instant createdAt;
     Instant updatedAt;
 
-    public User(Integer id, String username, String encryptedPassword) {
+    @Override
+    public String toString() {
+        return "User{" +
+            "id=" + id +
+            ", username='" + username + '\'' +
+            ", encryptedPassword='" + encryptedPassword + '\'' +
+            ", avatar='" + avatar + '\'' +
+            ", createdAt=" + createdAt +
+            ", updatedAt=" + updatedAt +
+            '}';
+    }
+
+    public User(BigInteger id, String username, String encryptedPassword) {
         this.id = id;
         this.username = username;
         this.encryptedPassword = encryptedPassword;
@@ -23,15 +37,16 @@ public class User {
 
     }
 
+
     public String getEncryptedPassword() {
         return encryptedPassword;
     }
 
-    public Integer getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 

@@ -1,20 +1,19 @@
-package com.entity;
+package com.entity.Service;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.math.BigInteger;
+import java.time.Instant;
+
+import com.entity.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.math.BigInteger;
-import java.time.Instant;
-
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Blog implements Serializable {
+public class Blog {
     private BigInteger id;
-    private BigInteger userId;
     private String title;
     private String description;
     private String content;
@@ -23,24 +22,8 @@ public class Blog implements Serializable {
     private Integer page;
     private Integer pageSide;
     private User user;
-    private Integer atIndex;
+    private Boolean atIndex;
 
-    @Override
-    public String toString() {
-        return "Blog{" +
-            "id=" + id +
-            ", userId=" + userId +
-            ", title='" + title + '\'' +
-            ", description='" + description + '\'' +
-            ", content='" + content + '\'' +
-            ", createdAt=" + createdAt +
-            ", updatedAt=" + updatedAt +
-            ", page=" + page +
-            ", pageSide=" + pageSide +
-            ", user=" + user +
-            ", atIndex=" + atIndex +
-            '}';
-    }
 
     public BigInteger getId() {
         return id;
@@ -48,14 +31,6 @@ public class Blog implements Serializable {
 
     public void setId(BigInteger id) {
         this.id = id;
-    }
-
-    public BigInteger getUserId() {
-        return userId;
-    }
-
-    public void setUserId(BigInteger userId) {
-        this.userId = userId;
     }
 
     public String getTitle() {
@@ -122,11 +97,13 @@ public class Blog implements Serializable {
         this.user = user;
     }
 
-    public Integer getAtIndex() {
+    public Boolean getAtIndex() {
         return atIndex;
     }
 
-    public void setAtIndex(Integer atIndex) {
+    public void setAtIndex(Boolean atIndex) {
         this.atIndex = atIndex;
     }
+
+
 }

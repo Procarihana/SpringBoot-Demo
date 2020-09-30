@@ -2,6 +2,7 @@ package com.service;
 
 import com.entity.User;
 import com.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,14 +10,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+
+import java.math.BigInteger;
 import java.util.Collections;
 
 
 @Service
 public class UserService implements UserDetailsService {
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private UserMapper  userMapper;
-
+    @Autowired
+    private UserMapper userMapper;
 
     @Inject
     public UserService(BCryptPasswordEncoder bCryptPasswordEncoder, UserMapper userMapper) {
@@ -25,15 +29,16 @@ public class UserService implements UserDetailsService {
     }
 
     public void save(String username, String password) {
-        userMapper.save(username, bCryptPasswordEncoder.encode(password));
+        String avatar = "https://avatars.dicebear.com/api/male/" + username + ".svg";
+        userMapper.save(username, bCryptPasswordEncoder.encode(password),avatar);
     }
 
     public User getUserByUsername(String username) {
         return userMapper.findUserByUsername(username);
     }
 
-    public User getUserById(Integer userId) {
-        return this.userMapper.getUserById((userId));
+    public User getUserById(BigInteger userId) {
+        return userMapper.getUserById((userId));
     }
 
     @Override
@@ -43,6 +48,7 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException(username + "不存在");
 
         }
-        return new org.springframework.security.core.userdetails.User(username, user.getEncryptedPassword(), Collections.emptyList());
+        return new org.springframework.security.core.userdetails.User(username, user.getEncryptedPassword(),
+            Collections.emptyList());
     }
 }

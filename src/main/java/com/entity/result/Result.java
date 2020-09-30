@@ -1,18 +1,9 @@
-package com.entity;
+package com.entity.result;
 
 public abstract class Result<T> {
     String status;
     String msg;
     T data;
-
-//    public static Result failure(String message) {
-//        return new Result("fail", message);
-//    }
-//
-//    public static Result success(String message, Object data) {
-//        return new Result("ok", message, data);
-//    }
-
 
     //通过静态工厂方法重构登录为`fail`、`success`的代码
     protected Result(String status, String msg) {

@@ -19,13 +19,27 @@
     </properties>
     <dependencies>
 
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>29.0-jre</version>
+        </dependency>
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.1.22</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+        <!-- mybatis -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
@@ -104,6 +118,13 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
+        <!-- devtools-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>　　-->
+<!--            <artifactId>spring-boot-devtools</artifactId>-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash; optional=true, 依赖不会传递, 该项目依赖devtools; 之后依赖boot项目的项目如果想要使用devtools, 需要重新引入&ndash;&gt;　　-->
 
     </dependencies>
 
@@ -114,21 +135,30 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
+                <configuration>
+                    <executable>java</executable>
+                    <arguments>
+                        <argument>-classpath</argument>
+                        <classpath/>
+                        <argument>com.Application</argument>
+                    </arguments>
+                </configuration>
                 <executions>
                     <execution>
-                        <!-- id用于区分-->
+                        <id>start java</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                    <execution>
                         <id>start-test-database</id>
-                        <!-- 把这个maven 绑定 在某个 生命周期里运行-->
                         <phase>pre-integration-test</phase>
                         <goals>
-                            <!-- goal为java表示在java里运行，而为exec则是在外部运行-->
                             <goal>exec</goal>
                         </goals>
                         <configuration>
                             <longModulepath>false</longModulepath>
-                            <!--executable 用于运行的程序-->
                             <executable>docker</executable>
-                            <!-- argument用于docker运行测试数据库 -->
                             <arguments>
                                 <argument>run</argument>
                                 <argument>--name</argument>
