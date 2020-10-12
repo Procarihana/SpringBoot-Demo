@@ -5,25 +5,60 @@ import java.time.Instant;
 
 import com.entity.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
 public class Blog {
     private BigInteger id;
+    @JsonIgnore
+    private BigInteger userId;
     private String title;
     private String description;
     private String content;
+    private User user;
     private Instant createdAt;
     private Instant updatedAt;
-    private Integer page;
-    private Integer pageSide;
-    private User user;
+    @JsonIgnore
     private Boolean atIndex;
 
+
+    @Override
+    public String toString() {
+        return "Blog{" +
+            "id=" + id +
+            ", title='" + title + '\'' +
+            ", description='" + description + '\'' +
+            ", content='" + content + '\'' +
+            ", user=" + user +
+            ", createdAt=" + createdAt +
+            ", updatedAt=" + updatedAt +
+            '}';
+    }
+
+    public Blog(BigInteger id, String title, String description, String content, User user,
+                Instant createdAt, Instant updatedAt) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.user = user;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+
+    }
+
+    public BigInteger getUserId() {
+        return userId;
+    }
+
+    public void setUserId(BigInteger userId) {
+        this.userId = userId;
+    }
 
     public BigInteger getId() {
         return id;
@@ -73,22 +108,6 @@ public class Blog {
         this.updatedAt = updatedAt;
     }
 
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getPageSide() {
-        return pageSide;
-    }
-
-    public void setPageSide(Integer pageSide) {
-        this.pageSide = pageSide;
-    }
-
     public User getUser() {
         return user;
     }
@@ -104,6 +123,5 @@ public class Blog {
     public void setAtIndex(Boolean atIndex) {
         this.atIndex = atIndex;
     }
-
 
 }

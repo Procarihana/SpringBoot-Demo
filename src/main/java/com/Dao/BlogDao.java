@@ -4,8 +4,8 @@ import com.converter.blogInfoPToS.BlogInfoPToSConverter;
 import com.entity.Blog;
 import com.mapper.BlogMapper;
 import org.apache.ibatis.session.SqlSession;
-import org.checkerframework.checker.units.qual.A;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 
@@ -15,13 +15,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Component
 public class BlogDao {
+    @Autowired
     private final SqlSession sqlSession;
+    @Autowired
     private final BlogMapper blogMapper;
-    private final Integer ATINDEX = 1;
-    private final Integer NOTINDEX = 0;
+    @Autowired
     private final BlogInfoPToSConverter converter;
+    private final Integer AT_INDEX = 1;
+    private final Integer NOT_INDEX = 0;
+
 
     @Inject
     public BlogDao(SqlSession sqlSession, BlogMapper blogMapper, BlogInfoPToSConverter converter) {
@@ -57,9 +61,9 @@ public class BlogDao {
     public void save(Boolean atIndex, String title, String description, String content, BigInteger userId) {
         Integer isIndex = null;
         if (Boolean.TRUE.equals(atIndex)) {
-            isIndex = ATINDEX;
+            isIndex = AT_INDEX;
         } else {
-            isIndex = NOTINDEX;
+            isIndex = NOT_INDEX;
         }
         blogMapper.save(isIndex, title, description, content, userId);
     }
@@ -69,13 +73,22 @@ public class BlogDao {
         return converter.convert(blog);
     }
 
-    public List<Blog> getAtIndexBlogs(Integer atIndex, Integer page, Integer pageSize) {
+    public List<Blog> getAtIndexBlogs(Integer page, Integer pageSize) {
         List<Blog> blogs = new ArrayList<>();
-        blogs.addAll(blogMapper.getAtIndexBlogs(atIndex, page, pageSize));
+        blogs.addAll(blogMapper.getAtIndexBlogs( page, pageSize));
         return blogs;
     }
 
     public Blog getNewBlog(BigInteger userId) {
         return blogMapper.getNewBlog(userId);
+    }
+
+    public Blog updateBlog(Integer atIndex, String content, String description, String title, BigInteger updatedBlogId) {
+        blogMapper.updateBlog(atIndex, content, description, title, updatedBlogId);
+        return blogMapper.getBlogByBlogId(updatedBlogId);
+    }
+
+    public void deleteBlogByBlogId(BigInteger deleteBlogId) {
+        blogMapper.deleteBlogByBlogId(deleteBlogId);
     }
 }

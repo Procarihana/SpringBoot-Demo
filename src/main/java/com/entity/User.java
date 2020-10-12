@@ -5,33 +5,31 @@ import java.math.BigInteger;
 import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class User implements Serializable {
     BigInteger id;
     String username;
+    String avatar;
     @JsonIgnore
     String encryptedPassword;
-    String avatar;
+    @JsonIgnore
     Instant createdAt;
+    @JsonIgnore
     Instant updatedAt;
 
-    @Override
-    public String toString() {
-        return "User{" +
-            "id=" + id +
-            ", username='" + username + '\'' +
-            ", encryptedPassword='" + encryptedPassword + '\'' +
-            ", avatar='" + avatar + '\'' +
-            ", createdAt=" + createdAt +
-            ", updatedAt=" + updatedAt +
-            '}';
+    public User(BigInteger id, String username, String avatar) {
+        this.id = id;
+        this.username = username;
+        this.avatar = avatar;
     }
 
-    public User(BigInteger id, String username, String encryptedPassword) {
+    public User(BigInteger id, String username, String encryptedPassword, String avatar) {
         this.id = id;
         this.username = username;
         this.encryptedPassword = encryptedPassword;
-        this.avatar = "";
+        this.avatar = avatar;
         this.createdAt = Instant.now();
         this.updatedAt = Instant.now();
 

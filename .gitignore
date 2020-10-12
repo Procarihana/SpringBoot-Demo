@@ -23,3 +23,5 @@
 hs_err_pid*
 target/
 *.idea/
+jenkins-data/
+jenkins-data2/

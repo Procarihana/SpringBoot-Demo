@@ -20,8 +20,6 @@ public class Blog implements Serializable {
     private String content;
     private Instant createdAt;
     private Instant updatedAt;
-    private Integer page;
-    private Integer pageSide;
     private User user;
     private Integer atIndex;
 
@@ -35,10 +33,7 @@ public class Blog implements Serializable {
             ", content='" + content + '\'' +
             ", createdAt=" + createdAt +
             ", updatedAt=" + updatedAt +
-            ", page=" + page +
-            ", pageSide=" + pageSide +
             ", user=" + user +
-            ", atIndex=" + atIndex +
             '}';
     }
 
@@ -96,22 +91,6 @@ public class Blog implements Serializable {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getPageSide() {
-        return pageSide;
-    }
-
-    public void setPageSide(Integer pageSide) {
-        this.pageSide = pageSide;
     }
 
     public User getUser() {

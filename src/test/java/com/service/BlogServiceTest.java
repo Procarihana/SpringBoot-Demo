@@ -28,16 +28,16 @@ public class BlogServiceTest {
     BlogService blogService;
 
     @Test
-    public void getBlogsFromDb() {
-        blogService.getBlogs(1, 10, null);
-        Mockito.verify(blogDao).getBlogs(1, 10, null, 1);
+    public void getBlogsByBlogUserId() {
+        blogService.getBlogs(1, BigInteger.valueOf(10));
+        Mockito.verify(blogDao).getBlogs(1, 10, BigInteger.valueOf(10), 1);
     }
 
     @Test
     public void returnFailureWhenExceptionThrow() {
         Mockito.when(blogDao.getBlogs(anyInt(), anyInt(), BigInteger.valueOf(anyInt()), anyInt()))
             .thenThrow(new RuntimeException());
-        Result<List<Blog>> result = blogService.getBlogs(1, 10, null);
+        Result<List<Blog>> result = blogService.getBlogs(1,BigInteger.valueOf(10));
         Assertions.assertEquals("fail", result.getStatus());
         Assertions.assertEquals("系统异常", result.getMsg());
     }

@@ -5,7 +5,6 @@ public abstract class Result<T> {
     String msg;
     T data;
 
-    //通过静态工厂方法重构登录为`fail`、`success`的代码
     protected Result(String status, String msg) {
         this.status = status;
         this.msg = msg;
