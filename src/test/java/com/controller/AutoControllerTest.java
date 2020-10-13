@@ -80,7 +80,7 @@ class AutoControllerTest {
         Map<String, String> usernamePassword = new HashMap<>(); //Jason序列化可以通过Map实现
 
         usernamePassword.put("username", "MockUser");
-        usernamePassword.put("password", "MockPassword");
+        usernamePassword.put("passwordgit stat", "MockPassword");
         Mockito.when(userService.loadUserByUsername("MockUser"))
             .thenReturn(new User("MockUser", bCryptPasswordEncoder
                 .encode("MockPassword"), Collections.emptyList()));

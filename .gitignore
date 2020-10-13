@@ -25,3 +25,5 @@ target/
 *.idea/
 jenkins-data/
 jenkins-data2/
+nginx/
+.mvn/

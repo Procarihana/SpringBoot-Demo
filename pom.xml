@@ -114,14 +114,6 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>com.Application</argument>
-                    </arguments>
-                </configuration>
                 <executions>
                     <execution>
                         <id>start java</id>
@@ -144,8 +136,6 @@
                                 <argument>test-mysql</argument>
                                 <argument>-e</argument>
                                 <argument>MYSQL_ROOT_PASSWORD=hana</argument>
-                                <argument>-e</argument>
-                                <argument>MYSQL_DATABASE=test_user</argument>
                                 <argument>-p</argument>
                                 <argument>3307:3306</argument>
                                 <argument>-d</argument>
@@ -167,7 +157,20 @@
                             <arguments>
                                 <argument>30</argument>
                             </arguments>
-
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>run</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-classpath</argument>
+                                <classpath/>
+                                <argument>com.Application</argument>
+                            </arguments>
                         </configuration>
                     </execution>
                     <execution>
@@ -188,12 +191,13 @@
                         </configuration>
                     </execution>
                 </executions>
+
             </plugin>
 
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-                <version>5.2.4</version>
+                <version>6.4.4</version>
                 <configuration>
                     <url>jdbc:mysql://localhost:3306/user</url>
                     <user>root</user>
@@ -207,12 +211,20 @@
                             <goal>migrate</goal>
                         </goals>
                         <configuration>
-                            <url>jdbc:mysql://localhost:3307/test_user?characterEncoding=utf8&amp;autoReconnect=true&amp;failOverReadOnly=false</url>
+                            <url>jdbc:mysql://localhost:3307/test_user?createDatabaseIfNotExist=true</url>
+<!--                            <url>jdbc:mysql://localhost:3307/test_user?useSSL=false&amp;serverTimezone=UTC&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;createDatabaseIfNotExist=true</url>-->
                             <user>root</user>
                             <password>hana</password>
                         </configuration>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.18</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <plugin>
