@@ -10,7 +10,7 @@ public class BlogResult extends Result<Blog> {
         return new BlogResult("ok", message, data);  //能够return null
     }
 
-    protected BlogResult(String status, String msg) {
+    public BlogResult(String status, String msg) {
         super(status, msg);
     }
 

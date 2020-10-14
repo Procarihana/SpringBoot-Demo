@@ -28,9 +28,10 @@ public class UserService implements UserDetailsService {
         this.userMapper = userMapper;
     }
 
-    public void save(String username, String password) {
+    public String save(String username, String password) {
         String avatar = "https://avatars.dicebear.com/api/male/" + username + ".svg";
         userMapper.save(username, bCryptPasswordEncoder.encode(password),avatar);
+        return "success!";
     }
 
     public User getUserByUsername(String username) {

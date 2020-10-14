@@ -26,4 +26,4 @@ target/
 jenkins-data/
 jenkins-data2/
 nginx/
-.mvn/
+Dockerfile

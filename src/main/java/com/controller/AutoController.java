@@ -65,7 +65,7 @@ public class AutoController {
             return LoginResult.failure("fail", "用户不存在");
         }
         try {
-            login(username, password, userDetails);
+            login(password, userDetails);
             return LoginResult.success("登录成功", userService.getUserByUsername(username));
         } catch (BadCredentialsException e) {
             return LoginResult.failure("fail", "密码不正确");
@@ -73,19 +73,11 @@ public class AutoController {
 
     }
 
-    private void login(String username, String password, UserDetails userDetails) {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken
-            (userDetails, password, userDetails.getAuthorities());
-        authenticationManager.authenticate(token);
-        SecurityContextHolder.getContext().setAuthentication(token);
-    }
-
-
-    @GetMapping("/auth/logout")
+    @GetMapping(value = "/auth/logout", produces = "application/json; charset=utf-8")
     @ResponseBody
     public Result logout() {
-        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        User loggedInUser = userService.getUserByUsername(userName);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User loggedInUser = userService.getUserByUsername(authentication == null ? null : authentication.getName());
 
         if (loggedInUser == null) {
             return LoginResult.failure("fail", "用户尚未登录");
@@ -95,7 +87,7 @@ public class AutoController {
         }
     }
 
-    @PostMapping("/auth/register")
+    @PostMapping(value = "/auth/register", produces = "application/json; charset=utf-8")
     @ResponseBody
     public Result register(@RequestBody Map<String, String> usernameAndPassword) {
         String username = usernameAndPassword.get("username");
@@ -115,11 +107,18 @@ public class AutoController {
             //这里在并发的过程中，如果有人同时申请两个同样的用户名字，就会出现数据库重复的情况，可以通过数据库约束完成事务
             User loggedInUser = userService.getUserByUsername(username);
             userDetails = userService.loadUserByUsername(username);
-            login(username, password, userDetails);
+            login(password, userDetails);
             return LoginResult.success("注册成功", loggedInUser);
         } catch (DuplicateKeyException e) {
             e.printStackTrace();
             return LoginResult.failure("fail", "错误原因:用户已存在");
         }
+    }
+
+    private void login(String password, UserDetails userDetails) {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken
+            (userDetails, password, userDetails.getAuthorities());
+        authenticationManager.authenticate(token);
+        SecurityContextHolder.getContext().setAuthentication(token);
     }
 }
