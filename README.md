@@ -18,7 +18,7 @@
 - 代码质量
 - - 使用 Maven 的 verify 周期绑定 CheckStyle 进行代码质量检查。
 - 单元测试
-- -对 Controller 层和 Service 层 进行了 JUnit 单元测试。在单元测试中使用 Mockito mock 进行不涉及真实依赖的检测。
+- -对 Controller 层和 Service 层 进行了 JUnit5 单元测试。在单元测试中使用 Mockito mock 进行不涉及真实依赖的检测。
 - 集成测试
 - - 对处理 HTTP 请求的接口进行继承测试，使用 HttpClient 模拟用户发送发送 HTTP 请求。使用 `mvn exec` 执行通过 Docker 创建启动和销毁数据库的操作，使用 Flyway 自动建表和插入测试数据。
 - 自动化测试
