@@ -31,9 +31,10 @@ public class BlogService {
 
     public Result getBlogs(Integer page, BigInteger userId) {
         Integer PAGE_SIZE = 10;
+        page = (page - 1) * PAGE_SIZE;
         List<com.entity.Blog> blogs;
         try {
-            if (userId == null) {
+            if (userId.equals(BigInteger.valueOf(0))) {
                 blogs = blogDao.getAtIndexBlogs(page, PAGE_SIZE);
             } else {
                 blogs = blogDao.getBlogs(page, PAGE_SIZE, userId, 1);
@@ -68,7 +69,8 @@ public class BlogService {
         return converter.convert(blogDao.getNewBlog(userId));
     }
 
-    public Blog updateBlog(Integer atIndex, String content, String description, String title, BigInteger updatedBlogId) {
+    public Blog updateBlog(Integer atIndex, String content, String description, String title,
+                           BigInteger updatedBlogId) {
         return converter.convert(blogDao.updateBlog(atIndex, content, description, title, updatedBlogId));
     }
 

@@ -44,9 +44,8 @@ public class BlogController {
     public Result getBlogs(@RequestParam("page") Integer page,
                            @RequestParam(value = "userId", required = false) BigInteger userId,
                            @RequestParam(value = "atIndex", required = false) String atIndex) {
-        if (atIndex == AT_INDEX) {
-            userId = BigInteger.valueOf(0);
-        }
+
+        userId = atIndex.equals(AT_INDEX) ? BigInteger.valueOf(0) : userId;
         return blogService.getBlogs(page, userId);
     }
 

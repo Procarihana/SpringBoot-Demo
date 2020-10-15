@@ -38,7 +38,7 @@ public class BlogDao {
     public List<Blog> getBlogs(Integer page, Integer pageSize, BigInteger userId, Integer atIndex) {
         Map<String, Object> selectBlog = new HashMap<>();
         selectBlog.put("user_id", userId);
-        selectBlog.put("offset", (page - 1) * pageSize);
+        selectBlog.put("offset", page);
         selectBlog.put("limit", pageSize);
         selectBlog.put("at_index", atIndex);
         List<Blog> blogs = sqlSession.selectList("db.mybatis.mapper.BlogMapper.selectBlog", selectBlog);
@@ -46,7 +46,7 @@ public class BlogDao {
     }
 
     public int count(BigInteger userId, Integer atIndex) {
-        if (userId == null) {
+        if (userId == BigInteger.valueOf(0)) {
             return sqlSession.selectOne("count", atIndex);
         }
         return sqlSession.selectOne("count", userId);
@@ -75,7 +75,7 @@ public class BlogDao {
 
     public List<Blog> getAtIndexBlogs(Integer page, Integer pageSize) {
         List<Blog> blogs = new ArrayList<>();
-        blogs.addAll(blogMapper.getAtIndexBlogs( page, pageSize));
+        blogs.addAll(blogMapper.getAtIndexBlogs(page, pageSize));
         return blogs;
     }
 
@@ -83,7 +83,8 @@ public class BlogDao {
         return blogMapper.getNewBlog(userId);
     }
 
-    public Blog updateBlog(Integer atIndex, String content, String description, String title, BigInteger updatedBlogId) {
+    public Blog updateBlog(Integer atIndex, String content, String description, String title,
+                           BigInteger updatedBlogId) {
         blogMapper.updateBlog(atIndex, content, description, title, updatedBlogId);
         return blogMapper.getBlogByBlogId(updatedBlogId);
     }

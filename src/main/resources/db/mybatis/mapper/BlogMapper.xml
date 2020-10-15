@@ -5,10 +5,10 @@
 <mapper namespace="db.mybatis.mapper.BlogMapper">
     <select id="selectBlog" resultType="com.entity.Blog">
         select * from `blog`
-        <if test = "user_id != null">
+        <if test="user_id != null">
             where user_id = #{user_id}
         </if>
-        <if test = "user_id == null">
+        <if test="user_id == null">
             where at_index = #{at_index}
         </if>
         LIMIT ${offset} , #{limit}
@@ -16,10 +16,10 @@
 
     <select id="count" resultType="int">
         select count(*) from blog
-        <if test="user_id != null">
+        <if test="user_id != 0">
             where user_id = #{user_id}
         </if>
-        <if test="user_id == null">
+        <if test="user_id == 0 ">
             where at_index = #{at_index}
         </if>
     </select>
