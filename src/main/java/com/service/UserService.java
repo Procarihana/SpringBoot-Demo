@@ -1,13 +1,14 @@
 package com.service;
 
+import com.Dao.UserDao;
 import com.entity.User;
-import com.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
@@ -18,28 +19,29 @@ import java.util.Collections;
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
-    private UserMapper userMapper;
+    private final UserDao userDao;
 
     @Inject
-    public UserService(BCryptPasswordEncoder bCryptPasswordEncoder, UserMapper userMapper) {
+    public UserService(BCryptPasswordEncoder bCryptPasswordEncoder, UserDao userDao) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.userMapper = userMapper;
+        this.userDao = userDao;
     }
 
+    @Transactional
     public String save(String username, String password) {
         String avatar = "https://avatars.dicebear.com/api/male/" + username + ".svg";
-        userMapper.save(username, bCryptPasswordEncoder.encode(password),avatar);
+        userDao.save(username, bCryptPasswordEncoder.encode(password), avatar);
         return "success!";
     }
 
     public User getUserByUsername(String username) {
-        return userMapper.findUserByUsername(username);
+        return userDao.findUserByUsername(username);
     }
 
     public User getUserById(BigInteger userId) {
-        return userMapper.getUserById((userId));
+        return userDao.getUserById((userId));
     }
 
     @Override

@@ -50,12 +50,6 @@ class UserServiceTest {
     @Test
     public void throwExceptionWhenUserNoFount() {
         Mockito.when(mockMapper.findUserByUsername("MockUser")).thenReturn(null);
-//        try {
-//            userService.loadUserByUsername("MockUser");
-//            Assertions.assertFalse(false);
-//        } catch (UsernameNotFoundException e) {
-//        }
-
 
         Assertions.assertThrows(UsernameNotFoundException.class, new Executable() {
             @Override

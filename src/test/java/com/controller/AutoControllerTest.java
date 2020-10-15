@@ -99,8 +99,8 @@ class AutoControllerTest {
 
     @Test
     void testRegisterSuccess() throws Exception {
-        Mockito.when(userService.save(MOCK_USERNAME,MOCK_PASSWORD)).thenReturn("success!");
-        loadUserByUsername(MOCK_USERNAME,MOCK_PASSWORD);
+        Mockito.when(userService.save(MOCK_USERNAME, MOCK_PASSWORD)).thenReturn("success!");
+        loadUserByUsername(MOCK_USERNAME, MOCK_PASSWORD);
         postMethodAndGetResponse("/auth/register", UserInMap(MOCK_USERNAME, MOCK_PASSWORD), "注册成功");
     }
 
@@ -110,7 +110,7 @@ class AutoControllerTest {
         getEntityUserByUsername(username, password);
         MvcResult response = postMethodAndGetResponse("/auth/login", UserInMap(username, password), "登录成功");
         // System.out.println(response.getResponse().getCookies());  //仅仅是进行单元测试，测试返回的内容，而鉴权和cookie 是没有实现的，所以返回的cookie是拿不到的
-        HttpSession session = response.getRequest().getSession();//session就是一组会话，HTTP响应和状态的集合
+        HttpSession session = response.getRequest().getSession();  //session就是一组会话，HTTP响应和状态的集合
         return session;
     }
 

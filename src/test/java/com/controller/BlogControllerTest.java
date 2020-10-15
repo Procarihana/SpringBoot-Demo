@@ -1,16 +1,11 @@
 package com.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 import java.math.BigInteger;
 
 import com.entity.result.BlogResult;
-import com.entity.result.BlogsResult;
-import com.entity.result.Result;
 import com.service.BlogService;
 import com.service.UserService;
 import org.junit.jupiter.api.Assertions;
@@ -20,14 +15,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -39,8 +31,6 @@ public class BlogControllerTest {
     private BlogService blogService;
     @Mock
     private UserService userService;
-    @Mock
-    private AuthenticationManager authenticationManager;
 
     private final int MOCK_PAGE = 1;
     private final BigInteger MOCK_USER_ID = BigInteger.valueOf(1);

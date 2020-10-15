@@ -1,7 +1,5 @@
 package com.entity.result;
 
-import java.util.List;
-
 import com.entity.Service.Blog;
 
 public class BlogResult extends Result<Blog> {

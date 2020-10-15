@@ -2,7 +2,6 @@ package com.service;
 
 import com.Dao.BlogDao;
 
-
 import com.entity.Blog;
 import com.entity.result.Result;
 import org.junit.jupiter.api.Assertions;
@@ -37,7 +36,7 @@ public class BlogServiceTest {
     public void returnFailureWhenExceptionThrow() {
         Mockito.when(blogDao.getBlogs(anyInt(), anyInt(), BigInteger.valueOf(anyInt()), anyInt()))
             .thenThrow(new RuntimeException());
-        Result<List<Blog>> result = blogService.getBlogs(1,BigInteger.valueOf(10));
+        Result<List<Blog>> result = blogService.getBlogs(1, BigInteger.valueOf(10));
         Assertions.assertEquals("fail", result.getStatus());
         Assertions.assertEquals("系统异常", result.getMsg());
     }
