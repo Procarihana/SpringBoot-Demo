@@ -167,7 +167,7 @@
                             <longModulepath>false</longModulepath>
                             <executable>sleep</executable>
                             <arguments>
-                                <argument>30</argument>
+                                <argument>60</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -211,7 +211,7 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>6.4.4</version>
                 <configuration>
-                    <url>jdbc:mysql://localhost:8.134.18.37/user</url>
+                    <url>jdbc:mysql://8.134.18.37:3306/user?createDatabaseIfNotExist=true</url>
                     <user>root</user>
                     <password>hana</password>
                 </configuration>
@@ -267,3 +267,4 @@
         </plugins>
     </build>
 </project>
+
