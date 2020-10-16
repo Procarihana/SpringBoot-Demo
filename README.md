@@ -8,7 +8,7 @@
 ## 项目结构
 - `Controller`: 存放 SpringBoot 对外接口，处理接收到的 HTTP 请求，对获取的请求参数进行验证和清洗，并将参数传递给业务逻辑 Service 层。
 - `Service`: 处理主要业务逻辑的方法实现，依赖于 Dao 层的数据库操作。
-- `Dao`: 提供实现访问数据的方法,通过 MyBatis 完成和数据库的交互。
+- `Dao`: 提供实现访问数据库的方法,通过 MyBatis 完成和数据库的交互。
 - `Mapper`: 存放使用 MyBatis 映射和数据库进行交互的 MYSQL 语句。 
 - `Entity`: 用于存放实体类。
 - `Converter`: 存放业务级别的实例和数据库实例的转换。  
