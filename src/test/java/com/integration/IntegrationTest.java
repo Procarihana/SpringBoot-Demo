@@ -17,8 +17,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.inject.Inject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 
 @ExtendWith(SpringExtension.class)
@@ -51,12 +53,15 @@ public class IntegrationTest {
                 Integer status = response.getStatusLine().getStatusCode();
                 inputStream = entity.getContent();
                 Assertions.assertEquals(200, status);
-                Assertions.assertTrue(inputStream.toString().contains("用户没有登录"));
+                System.out.println(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                Assertions.assertTrue(bufferedReader.readLine().contains("用户没有登录"));
             }
         } finally {
             httpClient.close();
             response.close();
         }
+
     }
 }
 
