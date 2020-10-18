@@ -6,9 +6,9 @@
 - - [前端代码](https://github.com/jirengu-inc/vue-blog-preview)
 
 ## 项目结构
-- `Controller`: 存放 SpringBoot 对外接口，处理接收到的 HTTP 请求，对获取的请求参数进行验证和清洗，并将参数传递给业务逻辑 service 层。
+- `Controller`: 存放 SpringBoot 对外接口，处理接收到的 HTTP 请求，对获取的请求参数进行验证和清洗，并将参数传递给业务逻辑 Service 层。
 - `Service`: 处理主要业务逻辑的方法实现，依赖于 Dao 层的数据库操作。
-- `Dao`: 提供实现访问数据的方法,通过 MyBatis 完成和数据库的交互。
+- `Dao`: 提供实现访问数据库的方法,通过 MyBatis 完成和数据库的交互。
 - `Mapper`: 存放使用 MyBatis 映射和数据库进行交互的 MYSQL 语句。 
 - `Entity`: 用于存放实体类。
 - `Converter`: 存放业务级别的实例和数据库实例的转换。  
@@ -18,11 +18,11 @@
 - 代码质量
 - - 使用 Maven 的 verify 周期绑定 CheckStyle 进行代码质量检查。
 - 单元测试
-- -对 Controller 层和 Service 层 进行了 JUnit 单元测试。在单元测试中使用 Mockito mock 进行不涉及真实依赖的检测。
+- -对 Controller 层和 Service 层 进行了 JUnit5 单元测试。在单元测试中使用 Mockito mock 进行不涉及真实依赖的检测。
 - 集成测试
 - - 对处理 HTTP 请求的接口进行继承测试，使用 HttpClient 模拟用户发送发送 HTTP 请求。使用 `mvn exec` 执行通过 Docker 创建启动和销毁数据库的操作，使用 Flyway 自动建表和插入测试数据。
 - 自动化测试
-- - 使用 TravisCi 对Github仓库进行测试，在每次 commit 里都进行测试，保证项目可演进性。
+- - 使用 Travis Ci 对Github仓库进行测试，在每次 commit 里都进行测试，保证项目可演进性。
 ## 重现
 #### clone 项目到本地
 `git clone https://github.com/Procarihana/SpringBoot-Demo.git`
